@@ -9,7 +9,7 @@ const Register = () => {
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
-    password: "",
+    password: "", 
   });
 
   //handle input change

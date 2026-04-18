@@ -3,29 +3,34 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
+
 const BlogDetails = () => {
   const [blog, setBlog] = useState({});
   const id = useParams().id;
   const navigate = useNavigate();
-  const [inputs, setInputs] = useState({});
-  // get blog details
-  const getBlogDetail = async () => {
-    try {
-      const { data } = await axios.get(`/api/v1/blog/get-blog/${id}`);
-      if (data?.success) {
-        setBlog(data?.blog);
-        setInputs({
-          title: data?.blog.title,
-          description: data?.blog.description,
-          image: data?.blog.image,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [inputs, setInputs] = useState({
+    title: "",
+    description: "",
+    image: "",
+  });
 
   useEffect(() => {
+    const getBlogDetail = async () => {
+      try {
+        const { data } = await axios.get(`/api/v1/blog/get-blog/${id}`);
+        if (data?.success) {
+          setBlog(data?.blog);
+          setInputs({
+            title: data?.blog.title,
+            description: data?.blog.description,
+            image: data?.blog.image,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     getBlogDetail();
   }, [id]);
 
@@ -54,9 +59,8 @@ const BlogDetails = () => {
       console.log(error);
     }
   };
-  console.log(blog);
   return (
-    <v>
+    <>
       <form onSubmit={handleSubmit}>
         <Box
           width={"50%"}
@@ -76,7 +80,7 @@ const BlogDetails = () => {
             padding={3}
             color="gray"
           >
-            Update A Pots
+            Update A Post
           </Typography>
           <InputLabel
             sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
@@ -122,7 +126,7 @@ const BlogDetails = () => {
           </Button>
         </Box>
       </form>
-    </v>
+    </>
   );
 };
 

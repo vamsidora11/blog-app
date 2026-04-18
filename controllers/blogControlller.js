@@ -79,7 +79,7 @@ exports.updateBlogController = async (req, res) => {
     const blog = await blogModel.findByIdAndUpdate(
       id,
       { ...req.body },
-      { new: true }
+      { new: true }      
     );
     return res.status(200).send({
       success: true,
